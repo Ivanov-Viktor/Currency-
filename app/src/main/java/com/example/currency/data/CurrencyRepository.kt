@@ -7,7 +7,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.coroutines.CoroutineContext
 
-class CorrencyRepository : CoroutineScope {
+class CurrencyRepository : CoroutineScope {
     override val coroutineContext: CoroutineContext = Dispatchers.IO
 
     private val currencyApi = Retrofit.Builder()
@@ -15,7 +15,6 @@ class CorrencyRepository : CoroutineScope {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
         .create(CurrencyApi::class.java)
-
 
 
     fun getCurrency() = async {

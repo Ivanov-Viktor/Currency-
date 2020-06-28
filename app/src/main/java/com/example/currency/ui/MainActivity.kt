@@ -1,7 +1,7 @@
 package com.example.currency.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.currency.R
 
 class MainActivity : AppCompatActivity() {
@@ -11,7 +11,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         supportFragmentManager.beginTransaction()
-            .add(R.id.fragmentContainer,NavigationFragment())
+            .add(R.id.fragmentContainer, NavigationFragment())
             .commit()
     }
 }

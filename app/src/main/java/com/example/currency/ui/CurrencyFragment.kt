@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.currency.R
-import com.example.currency.data.CorrencyRepository
+import com.example.currency.data.CurrencyRepository
 import kotlinx.android.synthetic.main.fragment_currency.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -27,18 +27,18 @@ class CurrencyFragment : Fragment(), CoroutineScope {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val repository = CorrencyRepository()
+        val repository = CurrencyRepository()
 
         when (arguments?.getInt("key") ?: "") {
             1 -> launch {
-                val curency = repository.getCurrency().await()
+                val currency = repository.getCurrency().await()
 
-                loader.visibility=View.GONE
-                textAndImage.visibility=View.VISIBLE
-                currencyRate.visibility=View.VISIBLE
+                loader.visibility = View.GONE
+                textAndImage.visibility = View.VISIBLE
+                currencyRate.visibility = View.VISIBLE
 
-                curency?.let {
-                    currencyText.text = getString(R.string.currenyFragmentTitleUsd)
+                currency?.let {
+                    currencyText.text = getString(R.string.currencyFragmentTitleUsd)
                     currencyImage.setImageResource(R.drawable.usa)
                     currencyRate.text = getString(R.string.currency).format(it.rub.toString())
                 }
@@ -46,19 +46,19 @@ class CurrencyFragment : Fragment(), CoroutineScope {
             }
             2 ->
                 launch {
-                    val curency = repository.getCurrency().await()
+                    val currency = repository.getCurrency().await()
 
-                    loader.visibility=View.GONE
-                    textAndImage.visibility=View.VISIBLE
-                    currencyRate.visibility=View.VISIBLE
+                    loader.visibility = View.GONE
+                    textAndImage.visibility = View.VISIBLE
+                    currencyRate.visibility = View.VISIBLE
 
                     //форматирование евро в формат 1,11
-                    val euro = ((1.0 - curency!!.eur) + 1) * curency.rub
+                    val euro = ((1.0 - currency!!.eur) + 1) * currency.rub
                     val df = DecimalFormat("#.##")
                     df.roundingMode = RoundingMode.CEILING
 
-                    curency?.let {
-                        currencyText.text = getString(R.string.currenyFragmentTitleEUR)
+                    currency?.let {
+                        currencyText.text = getString(R.string.currencyFragmentTitleEUR)
                         currencyImage.setImageResource(R.drawable.eu_flag)
                         currencyRate.text =
                             getString(R.string.currency).format(df.format(euro).toString())
